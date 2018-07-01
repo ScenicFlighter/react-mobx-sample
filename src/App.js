@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, Link, cleanPath } from 'react-static'
+import { Router, Route, cleanPath } from 'react-static'
 import { easeQuadOut } from 'd3-ease'
 import { NodeGroup } from 'react-move'
 import { withContext, getContext } from 'recompose'
@@ -8,6 +8,7 @@ import { hot } from 'react-hot-loader'
 //
 import Routes from 'react-static-routes'
 
+import MySideNav from './components/layouts/SideBar'
 import './app.css'
 
 const AnimatedRoutes = getContext({
@@ -99,16 +100,14 @@ const AnimatedRoutes = getContext({
 
 const App = () => (
   <Router>
-    <div>
-      <nav>
-        <Link exact to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/blog">Blog</Link>
-      </nav>
-      <div className="content">
-        <Routes component={AnimatedRoutes} />
-      </div>
-    </div>
+    <Route render={({ location, history }) => (
+      <React.Fragment>
+        <MySideNav location={location} history={history} />
+        <main className="content">
+          <Routes component={AnimatedRoutes} />
+        </main>
+      </React.Fragment>
+      )} />
   </Router>
 )
 
